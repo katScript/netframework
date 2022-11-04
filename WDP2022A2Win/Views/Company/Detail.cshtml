@@ -1,0 +1,34 @@
+@using WDP2022A2Win.ViewModels
+@model Company
+
+@{
+    ViewBag.Title = "Create Company";
+    Layout = "_Layout";
+}
+
+<section class="section-data text-center">
+    <div class="overlay"></div>
+    <img src="/images/bg2.jpg" class="tech-bg img-fluid" alt="top-6-tech"/>
+
+    <div class="tech-flow h-100 align-items-center text-center">
+        <div class="container d-flex h-100 align-items-center text-center">
+            <div class="w-100 text-white">
+                <h1 class="topic-header display-3">Company details</h1>
+                <hr>
+                <h3>Company Name</h3>
+                <p>@Model.CompanyName</p>
+                <h3>Summary</h3>
+                <p>@Model.Summary</p>
+                <h3>Image Filename</h3>
+                <p>@Model.ImageFilename</p>
+                <h3>Anchor Link</h3>
+                <p>@Model.AnchorLink</p>
+                <h3>Vote</h3>
+                <p>@Model.Like.ToString()</p>
+                
+                <a href="/Company/Edit/@Model.Id.ToString()" class="btn btn-primary">Edit</a>
+                <a asp-area="" asp-controller="Company" asp-action="Companies" class="btn btn-light">Back to List</a>
+            </div>
+        </div>
+    </div>
+</section>

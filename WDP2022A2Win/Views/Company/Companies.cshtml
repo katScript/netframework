@@ -1,0 +1,54 @@
+@model IEnumerable<Company>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<section class="section-data text-center">
+    <div class="overlay"></div>
+    <img src="/images/bg2.jpg" class="tech-bg img-fluid" alt="top-6-tech"/>
+
+    <div class="tech-flow h-100 align-items-center text-center">
+        <div class="container d-flex h-100 align-items-center text-center">
+            <div class="w-100 text-white">
+                <h1 class="topic-header display-3">List of Companies</h1>
+                <hr>
+                <div class="p-3 add-new">
+                    <a asp-area="" asp-controller="Company" asp-action="Create" class="btn btn-light">Add New Company</a>
+                </div>
+                <div class="w-100 x-flow">
+                    <table class="table company-table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Summary</th>
+                            <th scope="col">Image Filename</th>
+                            <th scope="col">Anchor Link</th>
+                            <th scope="col">Vote</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var company in Model)  
+                                {  
+                                    <tr>
+                                        <td>@company.CompanyName</td>
+                                        <td>@company.Summary</td>
+                                        <td>@company.ImageFilename</td>
+                                        <td>@company.AnchorLink</td>
+                                        <td>@company.Like.ToString()</td>
+                                        <td>
+                                            <a href="/Company/Edit/@company.Id.ToString()" class="btn btn-primary">Edit</a>
+                                            <a href="/Company/Detail/@company.Id.ToString()" class="btn btn-light">Detail</a>
+                                            <a href="/Company/Delete/@company.Id.ToString()" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
