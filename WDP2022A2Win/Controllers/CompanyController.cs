@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WDP2022A2Win.Data;
@@ -17,6 +18,7 @@ public class CompanyController : Controller
         webHostEnvironment = hostEnvironment;  
     }
     
+    [Authorize(Roles = "Admin")]
     // GET
     public async Task<IActionResult> Companies()
     {
@@ -25,6 +27,7 @@ public class CompanyController : Controller
     }
     
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public IActionResult Detail()
     {
         var id = Int32.Parse(ControllerContext.RouteData.Values["id"].ToString());
@@ -32,12 +35,14 @@ public class CompanyController : Controller
         return View(company);
     }
     
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
     }
     
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit()
     {
         var id = Int32.Parse(ControllerContext.RouteData.Values["id"].ToString());
@@ -59,6 +64,7 @@ public class CompanyController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete()
     {
         var id = Int32.Parse(ControllerContext.RouteData.Values["id"].ToString());
@@ -69,7 +75,16 @@ public class CompanyController : Controller
         return RedirectToAction("Companies", "Company");
     }
 
+    [Authorize(Roles = "Admin")]
+    public IActionResult DeleteView()
+    {
+        var id = Int32.Parse(ControllerContext.RouteData.Values["id"].ToString());
+        var company = dbContext.Companies.SingleOrDefault(c => c.Id == id);
+        return View(company);
+    }
+
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Save(CompanyViewModels model)
     {
         if (ModelState.IsValid)
@@ -112,6 +127,7 @@ public class CompanyController : Controller
         return RedirectToAction("Create", "Company");
     }
     
+    [Authorize(Roles = "Admin")]
     private string UploadedFile(CompanyViewModels model)  
     {  
         string uniqueFileName = null;  

@@ -36,11 +36,5 @@ namespace WDP2022A2Win.Controllers
         {
             return View();
         }
-        
-        [Authorize(Roles = "Admin")]
-        public IActionResult Admin()
-        {
-            return View();
-        }
     }
 }
