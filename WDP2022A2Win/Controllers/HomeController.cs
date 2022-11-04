@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
+using WDP2022A2Win.Data;
 using WDP2022A2Win.Models;
 
 namespace WDP2022A2Win.Controllers
@@ -8,10 +9,12 @@ namespace WDP2022A2Win.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _dbContext; 
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
         {
             _logger = logger;
+            this._dbContext = dbContext;
         }
 
         public IActionResult Index()
@@ -19,11 +22,10 @@ namespace WDP2022A2Win.Controllers
             return View();
         }
 
-        public IActionResult Companies()
+        public async Task<IActionResult> Companies()
         {
-            
-            
-            return View();
+            var companies = await _dbContext.Companies.ToListAsync();
+            return View(companies);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
